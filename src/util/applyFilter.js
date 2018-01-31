@@ -31,8 +31,15 @@ const applyFilter = (data, filter) => {
       if (findType('ip')  && e.ip !== filter.ip) {
         is=false;
       }
-      if (findType('domain')  && e.domain !== filter.domain) {
-        is=false;
+      if (findType('domain') ) {
+       if(typeof filter.domain==='object'){
+          is=false;
+          filter.domain.forEach((d)=> {
+            if (e.domain === d) {
+              is=true; 
+            }
+          });
+        }
       }
       if (findType('search')  && !e.event_type.includes(filter.search)) {
         is=false;
